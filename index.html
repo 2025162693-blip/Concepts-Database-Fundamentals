@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Database Animation</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #table {
+            width: 300px;
+            margin: auto;
+            border: 2px solid #444;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px;
+            border-bottom: 1px solid #ddd;
+            transition: 0.4s;
+        }
+
+        .row.fade-in {
+            background: #d4ffd4;
+        }
+
+        .row.fade-out {
+            background: #ffd5d5;
+            opacity: 0;
+        }
+
+        button {
+            margin: 5px;
+            padding: 8px 14px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Database Fundamentals </h2>
+<p>Watch INSERT, UPDATE, DELETE.</p>
+
+<div id="table">
+    <div class="row"><strong>ID</strong> <strong>Name</strong></div>
+</div>
+
+<br>
+
+<button onclick="insertRow()">INSERT</button>
+<button onclick="updateRow()">UPDATE</button>
+<button onclick="deleteRow()">DELETE</button>
+
+<script>
+let count = 1;
+let updateToggle = false;
+
+function insertRow() {
+    const table = document.getElementById("table");
+    const row = document.createElement("div");
+    row.className = "row fade-in";
+    row.innerHTML = `<div>${count}</div><div>User ${count}</div>`;
+    table.appendChild(row);
+
+    setTimeout(() => row.classList.remove("fade-in"), 400);
+    count++;
+}
+
+function updateRow() {
+    const rows = document.querySelectorAll("#table .row");
+    if (rows.length < 2) return; // no data rows yet
+
+    const row = rows[1]; // first data row
+    row.style.background = "#fff3c4";
+
+    if (!updateToggle) {
+        row.children[1].innerText = "Updated User";
+    } else {
+        row.children[1].innerText = "User 1";
+    }
+
+    updateToggle = !updateToggle;
+
+    setTimeout(() => row.style.background = "", 500);
+}
+
+function deleteRow() {
+    const rows = document.querySelectorAll("#table .row");
+    if (rows.length < 2) return;
+
+    const row = rows[rows.length - 1];
+    row.classList.add("fade-out");
+
+    setTimeout(() => row.remove(), 400);
+}
+</script>
+
+</body>
+</html>
