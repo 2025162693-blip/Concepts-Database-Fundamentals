@@ -74,9 +74,9 @@ function insertRow() {
 
 function updateRow() {
     const rows = document.querySelectorAll("#table .row");
-    if (rows.length < 2) return; // no data rows yet
+    if (rows.length < 2) return; 
 
-    const row = rows[1]; // first data row
+    const row = rows[1];
     row.style.background = "#fff3c4";
 
     if (!updateToggle) {
